@@ -49,7 +49,6 @@ function Decision() {
         [int]$numOfItems)
 
     $i = 0
-    $exist = $false
 
     while (($i -lt $numOfItems) -and ($x[$i] % 2 -ne 0)) {
         $i++
@@ -68,7 +67,6 @@ function DecisionAll() {
         [int]$numOfItems)
 
     $i = 0
-    $existAll = $false
 
     while (($i -lt $numOfItems) -and ($x[$i] % 2 -eq 1)) {
         $i++
@@ -83,13 +81,12 @@ function DecisionAll() {
 function IsSorted([System.Collections.Generic.List[int]]$array, [Int]$numOfItems) {
 
     $i = 0
-    $sorted = $false
 
     while (($i -le $numOfItems - 1) -and ($array[$i] -le $array[$i + 1]) ) {
         $i++
     }
 
-    $sorted = ($i -ge $numOfItems - 1)
+    $sorted = ($i -eq $numOfItems - 1)
 
     return $sorted
 }
@@ -143,11 +140,11 @@ function LinearSearchPrintHelper() {
         Write-Host("$exist - $idx")
     }
     else {
-        Write-Host($exist)
+        Write-Host($false)
     }
 }
 
-#Counting - count how many even (%2 == 0) numbers we have in the array
+#Counting - count how many even (%2 == 0) numbers have in the array
 function Counting([System.Collections.Generic.List[int]]$array, [Int]$numOfItems) {
 
     $pcs = 0
