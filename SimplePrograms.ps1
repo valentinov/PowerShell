@@ -13,11 +13,9 @@ function CountArray() {
     Param($array)
 
     if (CheckArray -array $array) {
-
         return $array.Count
     }
     else {
-
         return $false
     }
 }
@@ -37,8 +35,8 @@ function Summation() {
     return $value
 }
 
-#Summation short/one liner version
-function SummationOneLiner([System.Collections.Generic.List[int]]$array, [Int]$numOfItems) {
+#Summation short/one line version
+function SummationOneLine([System.Collections.Generic.List[int]]$array, [Int]$numOfItems) {
     return (($array | ForEach-Object { $_ } | Measure-Object -Sum)).Sum
 }
 
@@ -135,7 +133,6 @@ function LinearSearchValue([System.Collections.Generic.List[int]]$array, [Int]$n
 function LinearSearchPrintHelper() {
 
     if ($exist) {
-
         $idx = $i
         Write-Host("$exist - $idx")
     }
@@ -173,7 +170,6 @@ function MaxSelection([System.Collections.Generic.List[int]]$array, [Int]$numOfI
 $n = CountArray -array $x
 
 if ($n -is [Int]) {
-
     Write-Host("`nThe input array contains $n element(s). The elements are: $x`n")
 
     Write-Host("`nSummation")
