@@ -38,7 +38,7 @@ function Sort() {
     else {
         $count = $left - 1
     }
-    return $array, $count
+    Return ($array, $count)
 }
 
 #Check the two input array for common element. If finds one return true
