@@ -28,6 +28,22 @@ function BubbleSort($targetList, [Int]$numOfItems) {
     }
 }
 
+#Insertion sort O(n^2)
+function InsertionSort($targetList, [Int]$numOfItems) {
+
+    for ($i = 1; $i -lt $numOfItems; $i++) {
+        $j = $i - 1
+        $helper = $targetList[$i]
+
+        while (($j -gt 0) -and ($targetList[$j] -gt $helper)) {
+            $targetList[$j + 1] = $targetList[$j]
+            $j = $j - 1
+        }
+        
+        $targetList[$j + 1] = $helper
+    }
+}
+
 #Helper function to swap two elements in a list
 function SwapHelper($target, $a, $b) {
     $tmp = $target[$a]
