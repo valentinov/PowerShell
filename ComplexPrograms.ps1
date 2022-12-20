@@ -1,10 +1,10 @@
+#Generate two lists of random integers between 1 and 30. First list going to have 7 elements, the second 10.
 $x_1 = [System.Collections.Generic.List[int]]::new()
 $x_2 = [System.Collections.Generic.List[int]]::new()
 $x_1 = (1..7 | ForEach-Object { Get-Random -Minimum 1 -Maximum 30 })
-$x_2 = (1..8 | ForEach-Object { Get-Random -Minimum 1 -Maximum 30 })
+$x_2 = (1..10 | ForEach-Object { Get-Random -Minimum 1 -Maximum 30 })
 
 $m_1 = $x_1.Count
-
 $m_2 = $x_2.Count
 
 #Sort the even (%2 == 0) elements to the beginning of the array without swap
