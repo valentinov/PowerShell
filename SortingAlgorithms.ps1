@@ -54,6 +54,7 @@ function SwapHelper($list, $a, $b) {
     $list[$b] = $tmp
 }
 
+#Generate a list of 5 random integers between 1 and 311
 $randomList = [System.Collections.Generic.List[int]]::new()
 $randomList = (1..5 | ForEach-Object { Get-Random -Minimum 1 -Maximum 311 })
 
