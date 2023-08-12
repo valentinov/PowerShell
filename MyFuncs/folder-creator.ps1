@@ -26,8 +26,7 @@ function New-Folder {
             Write-Verbose "SUCCESS! Folder created: [$FolderPath]"
         }
         catch {
-            Write-Warning "WARNING! Folder already exists: [$FolderPath]"
-            Write-Error "Error creating folder: [$_]"
+            Write-Error "ERROR! Failed to create [$FolderPath] folder. Exception: [$_]"
         }
     }
     else {
