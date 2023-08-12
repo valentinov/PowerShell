@@ -9,7 +9,7 @@ This function creates a new folder at the specified path and provides verbose ou
 The path where the new folder should be created.
 
 .NOTES
-File Name      : folder-creator.ps1
+File Name      : folderCreator.ps1
 Author         : Valentin Vecsernik
 Prerequisite   : PowerShell V2
 #>
