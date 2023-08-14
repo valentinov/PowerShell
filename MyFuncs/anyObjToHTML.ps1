@@ -92,7 +92,7 @@ function AnyObjectToHTMLTable() {
 <#
 Small helper for the HTML table creator function
 Based on ValueSTR string input generates the standard HTML Table Data <td> formatting and color
-Returns a $html string
+Returns a $td string
 #>
 function CheckNColorTableData {
     param (
