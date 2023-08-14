@@ -1,3 +1,28 @@
+<#
+.SYNOPSIS
+Converts any PowerShell objects into an HTML table with customizable formatting and coloring.
+.DESCRIPTION
+This function takes a PowerShell object as input and generates an HTML table that represents the object's data. The table can include custom header and footer content, and cell coloring based on specific conditions.
+.PARAMETER InputObject
+The PowerShell object to be converted into an HTML table. This object's properties will be used as columns in the table.
+.PARAMETER Header
+The header text to be displayed at the top of the generated HTML table.
+.PARAMETER Footer
+Optional. The footer text to be displayed at the bottom of the generated HTML table.
+.NOTES
+File Name      : anyObjToHTML.ps1
+Author         : Valentin Vecsernik
+Prerequisite   : PowerShell V2
+.EXAMPLE
+$sampleData = @(
+    [PSCustomObject]@{ Server = "app001"; Pool = "A"; Endpoint = "http://app001/healthcheck.php"; Status = 200 }
+    [PSCustomObject]@{ Server = "app002"; Pool = "B"; Endpoint = "http://app002/healthcheck.php"; Status = 503 }
+)
+$header = "User Information"
+$footer = "Total users: $($sampleData.Count)"
+$outputHtml = AnyObjectToHTMLTable -InputObject $sampleData -Header $header -Footer $footer
+$outputHtml | Out-File -FilePath "table.html"
+#>
 function AnyObjectToHTMLTable() {
     param (
         [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
