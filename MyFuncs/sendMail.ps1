@@ -28,7 +28,7 @@ An array of file paths for attachments.
 
 .NOTES
 File Name      : SendMail.ps1
-Author         : Your Name
+Author         : Valentin Vecsernik
 Prerequisite   : PowerShell V3
 
 .EXAMPLE
