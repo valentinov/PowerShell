@@ -1,6 +1,6 @@
 <#
 .SYNOPSIS
-Sends an email using the Send-MailMessage cmdlet with error handling.
+Sends an email using the Send-MailMessage cmdlet with nice error handling.
 
 .DESCRIPTION
 This function sends an email using the Send-MailMessage cmdlet. It provides error handling to handle exceptions that may occur during the email sending process.
