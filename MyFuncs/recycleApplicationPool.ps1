@@ -44,7 +44,7 @@ function RecycleAppPool() {
             Write-Output "Application pool [$PoolName] on [$ServerName] server recycled successfully."
         }
         Catch {
-            Write-Error "Failed to recycle application pool [$PoolName] on [$ServerName] server. Error: $($_.Exception.Message)"
+            Write-Error "Failed to recycle application pool [$PoolName] on [$ServerName] server. Exception: [$($_.Exception.Message)]"
         }
     }
 
