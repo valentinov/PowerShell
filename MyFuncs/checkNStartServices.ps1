@@ -1,3 +1,32 @@
+<#
+.SYNOPSIS
+Checks and manages services on a specified server.
+
+.DESCRIPTION
+This function checks and manages services on a given server. It evaluates the services defined in the $Services list and performs actions such as changing startup type and starting stopped services.
+
+.PARAMETER ServerName
+The name of the server on which to check and manage services.
+
+.EXAMPLE
+CheckNStartServices -ServerName "Server01"
+
+This example invokes the CheckNStartServices function to check and manage services on "Server01".
+
+.NOTES
+File Name      : CheckNStartServices.ps1
+Author         : Valentin Vecsernik
+Prerequisite   : PowerShell v3.0
+#>
+
+$Services = [System.Collections.Generic.List[string]]@(
+    "IISADMIN-IIS Admin Service",
+    "w32time-Windows Time",
+    "W3SVC-World Wide Web",
+    "ProfSvc-User Profile Service",
+    "EventLog-Windows Event Log"
+)
+
 $Services = [System.Collections.Generic.List[string]]@("IISADMIN-IIS Admin Service", "w32time-Windows Time", "W3SVC-World Wide Web", "ProfSvc-User Profile Service", "EventLog-Windows Event Log")
 
 function CheckNStartServices() {
@@ -28,7 +57,7 @@ function CheckNStartServices() {
                 cmd /c sc \\$ServerName config $ServiceName start=auto
             }
             catch {
-                Write-Host 
+                Write-Host "Failed to set startup type. Error: [$($_.Exception.Message)]"
             }
         }
 
@@ -42,7 +71,7 @@ function CheckNStartServices() {
                 cmd /c sc \\$ServerName start $ServiceName
             }
             catch {
-                <#Do this if a terminating exception happens#>
+                Write-Host "Failed to start service. Error: [$($_.Exception.Message)]"
             }
             
         }
