@@ -27,8 +27,6 @@ $Services = [System.Collections.Generic.List[string]]@(
     "EventLog-Windows Event Log"
 )
 
-$Services = [System.Collections.Generic.List[string]]@("IISADMIN-IIS Admin Service", "w32time-Windows Time", "W3SVC-World Wide Web", "ProfSvc-User Profile Service", "EventLog-Windows Event Log")
-
 function CheckNStartServices() {
     param (
         [Parameter(Mandatory = $true)]
