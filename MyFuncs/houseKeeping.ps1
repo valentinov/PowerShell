@@ -61,7 +61,8 @@ function HouseKeeping {
                 Write-Host "Error deleting [$($File.FullName)]. Exception: [$_]"
             }
         }
-    } else {
+    }
+    else {
         Write-Host "No files to delete."
     }
 }
