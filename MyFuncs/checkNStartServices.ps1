@@ -73,9 +73,10 @@ function CheckNStartServices() {
             }
             
         }
+        
         # In other case print the service name and status
         else {
-            Write-Host "[$ServiceName ($SvDisplayName)] STATUS is ["$Service.Status"]`n"
+            Write-Host "[$ServiceName ($SvDisplayName)] STATUS is [$($Service.Status)]`n"
         }
     }
 }
