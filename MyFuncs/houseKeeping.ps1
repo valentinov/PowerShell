@@ -20,9 +20,9 @@
     (Default: "*.log")
 
 .NOTES
-    File deletions are performed using the `Remove-Item` cmdlet with the `-Force` parameter to ensure
-    that files are deleted even if they are read-only. Any errors encountered during deletion are
-    caught and reported.
+    File Name      : houseKeeping.ps1
+    Author         : Valentin Vecsernik
+    Prerequisite   : PowerShell V3
 
 .EXAMPLE
     HouseKeeping -LogFolderPath "C:\Logs" -DaysToDelete 7 -FileExtension "*.txt"
