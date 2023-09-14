@@ -13,11 +13,11 @@
 
 .PARAMETER DaysToDelete
     The number of days to retain log files. Log files older than this number of days will be deleted.
-    (Default: 3)
+    (Default is 3)
 
 .PARAMETER FileExtension
     The file extension of log files to be deleted. Specify the extension as a wildcard pattern.
-    (Default: "*.log")
+    (Default is "*.log")
 
 .NOTES
     File Name      : houseKeeping.ps1
