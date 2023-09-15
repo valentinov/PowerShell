@@ -69,8 +69,11 @@ $server3 = New-Object PSObject -Property @{
 # Add the objects to the array
 $serverObjects += $server1, $server2, $server3
 
+# Convert and export objects to json file
 Convert-ObjectToJsonFile -InputObject $serverObjects -OutputFilePath "full-path-to-some.json"
 
+# Import json file to object
 $importedServerObjects = Get-JsonFile -Path "full-path-to-some.json"
 
+# Do a small filtering on the imported objects
 $filteredServerObjects = $importedServerObjects | Where-Object { $_.Status -eq "Offline" }
