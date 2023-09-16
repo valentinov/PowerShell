@@ -78,5 +78,5 @@ $importedServerObjects = Get-JsonFile -Path "full-path-to-some.json"
 # Do a small filtering on the imported objects
 $filteredServerObjects = $importedServerObjects | Where-Object { $_.Status -eq "Offline" }
 
-# Write only the Ips to host
+# Write only the IPs to host
 $filteredServerObjects | ForEach-Object { Write-Host $_.IPAddress }
