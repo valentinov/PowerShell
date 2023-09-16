@@ -72,7 +72,7 @@ $serverObjects += $server1, $server2, $server3
 # Convert and export objects to json file
 Convert-ObjectToJsonFile -InputObject $serverObjects -OutputFilePath "full-path-to-some.json"
 
-# Import json file to object
+# Import json file as PS object object
 $importedServerObjects = Get-JsonFile -Path "full-path-to-some.json"
 
 # Do a small filtering on the imported objects
