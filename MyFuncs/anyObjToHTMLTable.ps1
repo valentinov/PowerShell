@@ -102,7 +102,7 @@ function CheckNColorTableData {
     )
     $td = ""  # Initialize the td string
     # green - ok
-    if ($ValueSTR -in "200", "started", "online") { 
+    if ($ValueSTR -in "200", "started", "online", "running") { 
         $td += -join ("<td bgcolor=", '"LightGreen"', ">", $ValueSTR, "</td>")
     }
     # red - error
