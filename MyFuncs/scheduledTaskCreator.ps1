@@ -1,14 +1,17 @@
-function ScheduleTaskCreator {
+function ScheduledTaskCreator {
     param (
         [Parameter(Mandatory = $true)]
         [String]
         $Server,
-        [Parameter(Mandatory = $true)]
-        [string]$FilePathName,
+
         [Parameter(Mandatory = $false)]
         [string]$TaskName = "Some random task name",
+        
+        [Parameter(Mandatory = $true)]
+        [string]$FilePathName,
+        
         [Parameter(Mandatory = $false)]
-        [int]$StartItInSeconds = 60
+        [int]$StartDelaySeconds = 60
     )
 
     $session = New-PSSession -ComputerName $Server
@@ -33,10 +36,10 @@ function ScheduleTaskCreator {
             }
         }
 
-        Write-Host "`n$hlpMsg [$TaskName] scheduled task on [$Server]. Task is going to run in [$StartItInSeconds] seconds...`n"
+        Write-Host "`n$hlpMsg [$TaskName] scheduled task on [$Server]. Task is going to run in [$StartDelaySeconds] seconds...`n"
 
         Try {
-            $SecondsFromNow = New-TimeSpan -Seconds $StartItInSeconds
+            $SecondsFromNow = New-TimeSpan -Seconds $StartDelaySeconds
 
             $TriggerTime = (Get-Date).Add($SecondsFromNow)
 
