@@ -1,62 +1,58 @@
-function ScheduledTaskCreator {
+function New-ScheduledTask {
     param (
         [Parameter(Mandatory = $true)]
-        [String]
+        [string]
         $Server,
 
         [Parameter(Mandatory = $false)]
-        [string]$TaskName = "Some random task name",
-        
+        [string]
+        $TaskName = "Some random task name",
+
         [Parameter(Mandatory = $true)]
-        [string]$FilePathName,
-        
+        [string]
+        $FilePathName,
+
         [Parameter(Mandatory = $false)]
-        [int]$StartDelaySeconds = 60
+        [int]
+        $StartDelaySeconds = 60
     )
 
-    $session = New-PSSession -ComputerName $Server
+    try {
+        $session = New-PSSession -ComputerName $Server -ErrorAction Stop
 
-    $scriptBlock = {
-        param($Server, $TaskName, $FilePathName)
+        $scriptBlock = {
+            param ($TaskName, $FilePathName, $StartDelaySeconds)
 
-        $TaskExists = Get-ScheduledTask -TaskName $TaskName -ErrorAction SilentlyContinue
+            $TaskExists = Get-ScheduledTask -TaskName $TaskName -ErrorAction SilentlyContinue
 
-        if ($null -eq $TaskExists) {
-            $hlpMsg = "Creating"
-        }
-
-        else {
-            $hlpMsg = "Updating"
-
-            Try {
-                Unregister-ScheduledTask -TaskName $TaskName -Confirm:$false
+            if ($null -eq $TaskExists) {
+                $hlpMsg = "Creating"
             }
-            Catch {
-                Write-Error "`nFailed to unregister Scheduled Task on [$Server] server. Error: $($_.Exception.Message)"
+            else {
+                $hlpMsg = "Updating"
+                Unregister-ScheduledTask -TaskName $TaskName -Confirm:$false -ErrorAction Stop
             }
-        }
-
-        Write-Host "`n$hlpMsg [$TaskName] scheduled task on [$Server]. Task is going to run in [$StartDelaySeconds] seconds...`n"
-
-        Try {
-            $SecondsFromNow = New-TimeSpan -Seconds $StartDelaySeconds
-
-            $TriggerTime = (Get-Date).Add($SecondsFromNow)
 
             $Action = New-ScheduledTaskAction -Execute 'Powershell.exe' -Argument "-File `"$FilePathName`""
 
-            $Trigger = New-ScheduledTaskTrigger -Once -At $TriggerTime
+            $Trigger = New-ScheduledTaskTrigger -Once -At (Get-Date).AddSeconds($StartDelaySeconds)
 
-            Register-ScheduledTask -TaskName "$TaskName" -Action $Action -Trigger $Trigger -User "NT AUTHORITY\SYSTEM"
+            Register-ScheduledTask -TaskName $TaskName -Action $Action -Trigger $Trigger -User "NT AUTHORITY\SYSTEM" -ErrorAction Stop
+
+            Write-Host "`n$hlpMsg [$TaskName] scheduled task on [$env:COMPUTERNAME] node. Task is going to run in [$StartDelaySeconds] seconds...`n"
         }
-        Catch {
-            Write-Error "`nFailed to create a new Scheduled Task on [$Server] server. Error: $($_.Exception.Message)"
-        }
+
+        Invoke-Command -Session $session -ScriptBlock $scriptBlock -ArgumentList $TaskName, $FilePathName, $StartDelaySeconds
+
+        Write-Host "Task creation/update completed successfully."
     }
-
-    Invoke-Command -Session $session -ScriptBlock $scriptBlock -ArgumentList $Server, $TaskName, $FilePathName
-
-    Remove-PSSession -Session $session
-    
-    Write-Host "`nKindly monitor the created shedule task."
+    catch {
+        Write-Error "Failed to create/update task. Error: $($_.Exception.Message)"
+    }
+    finally {
+        if ($session.State -eq 'Opened') {
+            Remove-PSSession -Session $session
+        }
+        Write-Host "`nKindly monitor the created sheduled task."
+    }
 }
