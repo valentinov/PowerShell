@@ -24,7 +24,7 @@ function Test-PSSessionConfiguration {
             return $sessionConfig
         }
         else {
-            Write-Host "FAIL! Custom configuration [$ConfigurationName] does not exist on [$ServerName]. Must register it before running the patching."
+            Write-Host "FAIL! Custom configuration [$ConfigurationName] does not exist on [$ServerName]. Must register it!"
         }
     }
     catch {
