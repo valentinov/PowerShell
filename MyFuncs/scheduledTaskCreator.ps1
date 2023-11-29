@@ -1,3 +1,32 @@
+<#
+.SYNOPSIS
+    Creates or updates a scheduled task on a remote server using PowerShell.
+
+.DESCRIPTION
+    The New-ScheduledTask function utilizes the ScheduledTask module to manage scheduled tasks. 
+    It allows for the specification of parameters such as the target server, task name, file path/name, and start delay.
+
+.PARAMETER Server
+    Specifies the target server where the scheduled task will be created or updated.
+
+.PARAMETER TaskName
+    Specifies the name of the scheduled task. If not provided, a default task name is used.
+
+.PARAMETER FilePathName
+    Specifies the file path and name of the script or program to be executed by the scheduled task.
+
+.PARAMETER StartDelaySeconds
+    Specifies the delay in seconds before the scheduled task is executed. Default is 60 seconds.
+
+.EXAMPLE
+    New-ScheduledTask -Server "RemoteServer" -TaskName "MyTask" -FilePathName "C:\Path\To\Script.ps1" -StartDelaySeconds 120
+
+.NOTES
+    File: New-ScheduledTask.ps1
+    Author: Valentin Vecsernik
+
+#>
+
 function New-ScheduledTask {
     param (
         [Parameter(Mandatory = $true)]
