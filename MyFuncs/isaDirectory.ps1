@@ -42,6 +42,6 @@ function IsaDirectory {
         }
     }
     else {
-        Write-Error "Error! The provided [$targetPath] is invalid"
+        Write-Error "Error! The provided [$targetPath] path is invalid"
     }
 }
