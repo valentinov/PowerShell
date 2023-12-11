@@ -15,6 +15,9 @@
 .EXAMPLE
     GetAppPools -ComputerName "RemoteServer"
 
+    $appPoolsInfo = GetAppPools -ComputerName "RemoteServer"
+    $appPoolsInfo | Format-Table
+
 .NOTES
     File: GetAppPools.ps1
     Author: Valentin Vecsernik
@@ -44,7 +47,3 @@ function GetAppPools {
         Write-Error "Failed to retrieve IIS application pool information. Error: $($_.Exception.Message)"
     }
 }
-
-# Usage example:
-# $appPoolsInfo = GetAppPools -ComputerName "RemoteServer"
-# $appPoolsInfo | Format-Table
