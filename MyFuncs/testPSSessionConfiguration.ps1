@@ -1,3 +1,30 @@
+<#
+.SYNOPSIS
+    Checks if a custom PowerShell session configuration exists on a remote server.
+
+.DESCRIPTION
+    The Test-PSSessionConfiguration function verifies the presence of a specific
+    PowerShell session configuration on a remote server. It helps ensure that the
+    required configuration is available before further actions are taken.
+
+.PARAMETER ConfigurationName
+    Specifies the name of the custom PowerShell session configuration to check.
+
+.PARAMETER ServerName
+    Specifies the name of the remote server on which to check the configuration.
+
+.EXAMPLE
+    Test-PSSessionConfiguration -ConfigurationName "MyConfig" -ServerName "RemoteServer"
+
+.NOTES
+    File: Test-PSSessionConfiguration.ps1
+    Author: Valentin Vecsernik
+    Version: 1.0
+    Date: December 15, 2023
+
+#>
+
+
 function Test-PSSessionConfiguration {
     param (
         [Parameter(Mandatory = $true)]
@@ -28,17 +55,12 @@ function Test-PSSessionConfiguration {
         }
     }
     catch {
-        Write-Host "ERROR! Failed to check custom configuration on [$ServerName]. Error: $($_.Exception.Message)"
+        Write-Host "ERROR! Failed to check custom configuration on [$ServerName]. Error: [$($_.Exception.Message)]"
     }
     finally {
+        # Ensure to close the PowerShell session
         if ($session.State -eq 'Opened') {
             Remove-PSSession -Session $session
         }
     }
 }
-
-# Example usage:
-# $config = Test-PSSessionConfiguration -ConfigurationName "MyConfig" -ServerName "Server1"
-# if ($config -ne $null) {
-#     # Do something with the configuration
-# }
