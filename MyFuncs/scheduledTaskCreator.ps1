@@ -74,14 +74,18 @@ function New-ScheduledTask {
         Invoke-Command -Session $session -ScriptBlock $scriptBlock -ArgumentList $TaskName, $FilePathName, $StartDelaySeconds
 
         Write-Host "Task creation/update completed successfully."
+        $failedTask = $false
     }
     catch {
         Write-Error "Failed to create/update task. Error: $($_.Exception.Message)"
+        $failedTask = $true
     }
     finally {
         if ($session.State -eq 'Opened') {
             Remove-PSSession -Session $session
         }
-        Write-Host "`nKindly monitor the created sheduled task."
+        if ($failedTask -eq $false) {
+            Write-Host "`nKindly monitor the created [$TaskName] sheduled task."
+        }
     }
 }
