@@ -46,8 +46,19 @@ function SendMail() {
         [string[]]$MailAttachment
     )
     Try {
-        Send-MailMessage -From $FromMail -To $MailTo -Cc $MailCc -Subject $MailSubject -SmtpServer $SMTP -Bodyashtml $Mailbody -Attachments $Mailattachment
-        Write-Host "`nMail has been sent to [$MailTo] Cc to [$MailCc]. Attached file(s): [$Mailattachment]`n"
+       $parameters = @{
+                   From        = $FromMail
+                   To          = $MailTo
+                   Subject     = $MailSubject
+                   SmtpServer  = $SMTP
+                   Body        = $MailBody
+                   BodyAsHtml  = $true
+       }
+       if ($MailCc) { $parameters.Cc = $MailCc }
+       if ($MailAttachment -and $MailAttachment.Count -gt 0) { $parameters.Attachments = $MailAttachment }
+       
+       Send-MailMessage @parameters
+       Write-Host "`nMail has been sent to [$MailTo] Cc to [$MailCc]. Attached file(s): [$Mailattachment]`n"
     }
     Catch {
         $failMessage = "# $($MyInvocation.MyCommand) function FAILED #"
